@@ -11,7 +11,7 @@ function App() {
   const handleCalculate = async () => {
     setError('');
     try {
-      const response = await axios.post('/calculate', {
+      const response = await axios.post('http://backend:5000/calculate', {
         num1: parseFloat(num1),
         num2: parseFloat(num2),
         operation,
