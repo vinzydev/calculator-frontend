@@ -8,10 +8,13 @@ function App() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
 
+  // Get the backend URL from the environment variable provided by Docker Compose
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'; // Fallback for local dev without Docker
+
   const handleCalculate = async () => {
     setError('');
     try {
-      const response = await axios.post('http://backend:5000/calculate', {
+      const response = await axios.post('${BACKEND_URL}/calculate', {
         num1: parseFloat(num1),
         num2: parseFloat(num2),
         operation,
@@ -19,7 +22,7 @@ function App() {
       setResult(response.data.result);
     } catch (err) {
       console.error(err);
-      setError('Error calling backend. Is it running on http://localhost:5000?');
+      setError('Error calling backend. Is it running and reachable? Check browser console for more details.');
     }
   };
 
